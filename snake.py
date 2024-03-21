@@ -28,7 +28,6 @@ def inside(head):
     """Return True if head inside boundaries."""
     return -200 < head.x < 190 and -200 < head.y < 190
 
-
 def move():
     """Move snake forward one segment."""
     head = snake[-1].copy()
@@ -48,6 +47,15 @@ def move():
     else:
         snake.pop(0)
 
+    #Low chance for food to move just one segment in a random direction.
+    if randrange(20) == 0:
+        food.x += randrange(-10, 11, 10)
+        food.y += randrange(-10, 11, 10)
+
+    #Ensures the food stays within the boundaries.
+    food.x = min(max(food.x, -200), 190)
+    food.y = min(max(food.y, -200), 190)
+
     clear()
 
     for body in snake:
@@ -56,7 +64,6 @@ def move():
     square(food.x, food.y, 9, 'green')
     update()
     ontimer(move, 100)
-
 
 setup(420, 420, 370, 0)
 hideturtle()
