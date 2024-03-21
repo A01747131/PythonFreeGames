@@ -12,6 +12,7 @@ Exercises
 from turtle import *
 
 from freegames import vector
+from math import pi
 
 
 def line(start, end):
@@ -38,7 +39,21 @@ def square(start, end):
 
 def circle(start, end):
     """Draw circle from start to end."""
-    pass  #TODO
+    radius = abs(end.x - start.x) / 2  # Calculates radius as half of the side length
+    up()
+    goto(start.x + radius, start.y)
+    down()
+    begin_fill()
+    circle_draw(radius)
+    end_fill()
+
+def circle_draw(radius):
+    """Draw circle with given radius in circle function."""
+    circumference = 2 * pi * radius
+    side_length = circumference / 360
+    for _ in range(360):
+        forward(side_length)
+        left(1)
 
 
 def rectangle(start, end):
