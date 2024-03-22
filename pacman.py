@@ -162,8 +162,7 @@ def move():
 
         if valid(point + course):
             point.move(course)
-<<<<<<< HEAD
-=======
+
         else:
             speed = 13
             options = [
@@ -175,7 +174,6 @@ def move():
             plan = choice(options)
             course.x = plan.x
             course.y = plan.y
->>>>>>> carlosBranch
 
         up()
         goto(point.x + 10, point.y + 10)
