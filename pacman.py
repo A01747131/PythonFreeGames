@@ -135,11 +135,12 @@ def move():
         if valid(point + course):
             point.move(course)
         else:
+            speed = 13
             options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
+                vector(speed, 0),
+                vector(-speed, 0),
+                vector(0, speed),
+                vector(0, -speed),
             ]
             plan = choice(options)
             course.x = plan.x
