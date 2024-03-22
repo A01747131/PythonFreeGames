@@ -16,6 +16,7 @@ from freegames import vector
 ball = vector(-200, -200)
 speed = vector(0, 0)
 targets = []
+speed_increase_factor = 2 #This value can be added and/or modified to increase the speed of the projectile and the balls as desired. 
 
 
 def tap(x, y):
@@ -23,8 +24,8 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        speed.x = (x + 200) / 25 * speed_increase_factor
+        speed.y = (y + 200) / 25 * speed_increase_factor
 
 
 def inside(xy):
@@ -55,10 +56,10 @@ def move():
         targets.append(target)
 
     for target in targets:
-        target.x -= 0.5
+        target.x -= 0.5 * speed_increase_factor #Increased speed for balls.
 
     if inside(ball):
-        speed.y -= 0.35
+        speed.y -= 0.35 * speed_increase_factor #Increased speed for projectile.
         ball.move(speed)
 
     dupe = targets.copy()
