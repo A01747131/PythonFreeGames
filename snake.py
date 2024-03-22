@@ -58,7 +58,7 @@ def move():
     update()
     ontimer(move, 100)
 
-"""Elige un color aleatorio para la serpiente y para la comida"""
+"""Choose a random color to the snake and the food"""
 colors = ['blue','orange','green','black']
 snakeColor = random.choice(colors)
 colors.remove(snakeColor)
