@@ -10,15 +10,22 @@ Exercises:
 
 from random import *
 from turtle import *
-
+import random
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+tiles = [
+    'Aguascalientes','Baja California', 'Campeche',
+	'Chiapas', 'Chihuahua', 'Coahuila', 'Colima',
+	'Cdmx','Durango','Guanajuato','Guerrero', 'Hidalgo','Jalisco',
+    'Mexico','Michoacan','Morelos','Nayarit','Nuevo Leon',
+	'Oaxaca','Puebla','Queretaro ','Quintana Roo','San Luis Potosi',
+	'Sinaloa','Sonora','Tabasco','Tamaulipas','Tlaxcala',
+	'Veracruz','Yucatan','Zacatecas','Baja California Sur'
+] * 2
 state = {'mark': None}
 hide = [True] * 64
 tap_count = 0 #Taps counter.
-
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -79,9 +86,9 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 25, y + 25)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], font=('Arial', 6, 'normal'),align="center")
 
     #Displays number of taps
     goto(-180, 180)
@@ -90,6 +97,7 @@ def draw():
 
     update()
     ontimer(draw, 100)
+
 
 def congratulations():
     """Display congratulations message."""

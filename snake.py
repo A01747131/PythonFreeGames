@@ -10,7 +10,7 @@ Exercises
 
 from random import randrange
 from turtle import *
-
+import random
 from freegames import square, vector
 
 food = vector(0, 0)
@@ -59,12 +59,22 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9,snakeColor )
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, appleColor)
+    
     update()
     ontimer(move, 100)
 
+<<<<<<< HEAD
+=======
+"""Choose a random color to the snake and the food"""
+colors = ['blue','orange','green','black']
+snakeColor = random.choice(colors)
+colors.remove(snakeColor)
+appleColor = random.choice(colors)
+
+>>>>>>> carlosBranch
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
