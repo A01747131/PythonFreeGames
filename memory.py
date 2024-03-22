@@ -1,5 +1,4 @@
 """Memory, puzzle game of number pairs.
-
 Exercises:
 
 1. Count and print how many taps occur.
@@ -18,6 +17,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+tap_count = 0 #Taps counter.
 
 
 def square(x, y):
@@ -45,6 +45,8 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
+    global tap_count
+    tap_count += 1
     spot = index(x, y)
     mark = state['mark']
 
@@ -55,9 +57,13 @@ def tap(x, y):
         hide[mark] = False
         state['mark'] = None
 
+    if all(not hidden for hidden in hide):
+        # All tiles are uncovered
+        congratulations()
 
 def draw():
     """Draw image and tiles."""
+    global tap_count 
     clear()
     goto(0, 0)
     shape(car)
@@ -77,8 +83,19 @@ def draw():
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
+    #Displays number of taps
+    goto(-180, 180)
+    color('black')
+    write(f'Taps: {tap_count}', font=('Arial', 16, 'normal'))
+
     update()
     ontimer(draw, 100)
+
+def congratulations():
+    """Display congratulations message."""
+    goto(0, 0)
+    color('black')
+    write('Congratulations! You uncovered all the tiles!', align='center', font=('Arial', 10, 'normal'))
 
 
 shuffle(tiles)
