@@ -87,7 +87,6 @@ def valid(point):
 
     return point.x % 20 == 0 or point.y % 20 == 0
 
-
 def world():
     """Draw world using path."""
     bgcolor('black')
@@ -108,7 +107,7 @@ def world():
 
 
 def move():
-    """Move pacman and all ghosts."""
+    "Move pacman and all ghosts."
     writer.undo()
     writer.write(state['score'])
 
@@ -130,35 +129,53 @@ def move():
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
 
-    for point, course in ghosts:
+    for ghost in ghosts:
+        point, course = ghost
+
+        # Calculates the direction towards pacman
+        target = pacman - point
+        target_length = (target.x ** 2 + target.y ** 2) ** 0.5
+        if target_length != 0:
+            target.x /= target_length
+            target.y /= target_length
+
+        # Chooses the best direction towards pacman
+        options = [
+            vector(5, 0),
+            vector(-5, 0),
+            vector(0, 5),
+            vector(0, -5),
+        ]
+        best_option = options[0]
+        min_distance = abs(point + options[0] - pacman)
+        for option in options:
+            new_point = point + option
+            distance = abs(new_point - pacman)
+            if distance < min_distance and valid(new_point):
+                min_distance = distance
+                best_option = option
+
+        # Updates the course to move towards pacman
+        course.x = best_option.x
+        course.y = best_option.y
+
         if valid(point + course):
             point.move(course)
-        else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
 
         up()
         goto(point.x + 10, point.y + 10)
         dot(20, 'red')
 
-    update()
-
-    for point, course in ghosts:
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+    update()
 
+    ontimer(move, 100)
+ 
 
 def change(x, y):
-    """Change pacman aim if valid."""
+    "Change pacman aim if valid."
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
